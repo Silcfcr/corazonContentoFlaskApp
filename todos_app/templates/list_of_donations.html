@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis donaciones</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/CSS/list.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+</head>
+<body>
+   <!-- Nav_bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Corazón contento</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/list_of_donators">Organizaciones solidarias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/list_of_receivers">Organizaciones beneficiadas</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <a href="/logout" class="btn btn-outline-success me-2" type="submit">Cerrar Sesión</a>
+    
+                </form>
+            </div>
+        </div>
+    </nav>
+    
+    <div class='container-fluid'>
+        {% if donations != false: %}
+        <div class="row">
+            <div class="table-responsive col-10">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>N. de referencia</td>
+                            <td>Tipo de alimentos</td>
+                            <td>Cantidad en porciones</td>
+                            <td>Requiere transporte refrigerado</td>
+                            <td>Detalles</td>
+                            <td>Status</td>
+                            <td>Acciones</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for donation in donations %}
+                        <tr>
+                            <td>{{donation['id']}}</td>
+                            <td>{{donation['type']}}</td>
+                            <td>{{donation['portions']}}</td>
+                            <td>{{donation['transport']}}</td>
+                            <td>{{donation['description']}}</td>
+                            <td>{{donation['status']}}</td>
+                            <td>
+                                {% if donation['status'] == 'solicitada' or donation['status'] == 'entregada' : %}
+                                <a class="btn btn-outline-success me-2" href="/show_receiver/{{donation['receiver_id']}}">Ver
+                                    solicitante</a>
+                                {% else %}
+                                <a class="btn btn-outline-success me-2" href="/show_edit_donation/{{donation['id']}}">Editar</a>
+                                <a class="btn btn-outline-success me-2" href="/delete_donation/{{donation['id']}}">Eliminar</a>
+                                {% endif %}
+        
+                            </td>
+                        </tr>
+                        {% endfor%}
+                    </tbody>
+                </table>
+                <p>**Las donaciones no pueden ser eliminadas ni editadas si ya fueron solicitadas. Favor ponerse en contacto con
+                    el
+                    solicitante lo antes posible si existe algún problema.</p>
+                <div>
+                    <a href="/dashboard" class="btn btn-outline-success me-2" type="submit">Vuelve al inicio</a>
+                </div>
+                {% else: %}
+                <div>
+                    <h1> No has hecho ninguna donación </h1>
+                    <a href="/make_donation" class="btn btn-outline-success me-2" type="submit">Realiza una</a>
+                    <a href="/make_donation" class="btn btn-outline-success me-2" type="submit">Vuelve al inicio</a>
+                </div>
+        
+            {% endif %}
+            
+        
+            </div>
+
+        </div>
+        
+    </div>
+</body>
+</html>

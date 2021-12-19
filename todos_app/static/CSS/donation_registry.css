@@ -1,0 +1,24 @@
+body {
+  background-image: url(../imgs/background.png);
+}
+
+#form {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 1em;
+}
+
+.body {
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+}
+
+.body > div {
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 90%;
+  border-radius: 0.5em;
+}
+
+button {
+  margin-top: 1em;
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de donación</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/CSS/donation_registry.css') }}">
+
+</head>
+
+<body>
+    <!-- Nav_bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/dashboard">Corazón contento</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/list_of_donators">Organizaciones solidarias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/list_of_receivers">Organizaciones beneficiadas</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <a href="/logout" class="btn btn-outline-success me-2" type="submit">Cerrar Sesión</a>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <body>
+        <div class="body">
+            <div class="form" id='form'>
+                <form action="/register_donation" method="POST">
+                    <div class="container">
+                        <div class="form">
+                            <h1>Regístrese como donante de alimentos</h1>
+                            {% with messages = get_flashed_messages(category_filter=['donation']) %}
+                            {% if messages %}
+                            <div class="alert alert-danger" role="alert">
+                                <strong>Errores a la hora de realizar la donación. Por favor inténtelo
+                                    nuevamente</strong>
+                                {% for message in messages %}
+                                <p>{{message}}</p>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            {% endwith %}
+                            <div class="form-group">
+                                <label for="type">Tipo de donación:</label>
+                                <select class="form-select" name="type" aria-label="Default select example" multiple>
+                                    <option value="preparada" selected>Comida preparada</option>
+                                    <option value="fresco">Frutas y verduras frescas</option>
+                                    <option value="no_perecedero">Alimentos no perecederos</option>
+                                </select>
+                            </div>
+                            <label>Requiere transporte refrigerado:</label>
+                            <div class="form-check">
+                                <label class="form-check-label" for="transport">
+                                    si
+                                </label>
+                                <input class="form-check-input" type="radio" name="transport" id="transport" value="si" checked>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label" for="transport">
+                                    no
+                                </label>
+                                <input class="form-check-input" type="radio" name="transport" id="transport" value='no'>
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Porciones:</label>
+                                <input required class="form-control" type="number" name="portions" id="portions">
+                            </div>
+                            <div class="form-group">
+                                <label for="expiration">Fecha de expiración:</label>
+                                <input required class="form-control" type="date" name="expiration" id="expiration">
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Descripción detallada de los alimentos a donar:</label>
+                                <textarea class="form-control" name="description" id="description" cols="30" rows="10"
+                                    placeholder="Escriba aquí..."></textarea>
+                            </div>
+                            <input type="hidden" name="status" value='disponible'>
+                            <input type="hidden" name="donator_id" value="{{user['id']}}">
+                            <input type="hidden" name="receiver_id" value=0>
+                            <button class="btn btn-outline-success me-2" type="submit">Realizar publicación</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+
+    </body>
+</body>
+
+</html>

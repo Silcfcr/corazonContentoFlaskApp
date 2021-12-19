@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corazón Contento</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/CSS/receiver_dashboard.css') }}">
+
+</head>
+<body>
+   <!-- Nav_bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/dashboard">Corazón contento</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/list_of_donators">Organizaciones solidarias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/list_of_receivers">Organizaciones beneficiadas</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <a href="/logout" class="btn btn-outline-success me-2" type="submit">Cerrar Sesión</a>
+    
+                </form>
+            </div>
+        </div>
+    </nav>
+    <body>
+        <div class="body">
+            <div>
+                <h2>Donación {{donation['id']}}</h2>
+                <h3>Institución donadora: {{donation['name']}}</h3>
+                <h3>Tipo: {{donation['type']}}</h3>
+                <h3>Porciones: {{donation['portions']}}</h3>
+                <h3>Requiere transporte refrigerado: {{donation['transport']}}</h3>
+                <h3>Detalles: {{donation['description']}}</h3>
+              
+
+                <h3>Ubicación: {{donation['state']}},{{donation['city']}},{{donation['address']}}, </h3>
+                <p></p>
+            </div>
+            <div>
+                <h2>Detalles de la persona de contacto del donador:</h2>
+                <h3>Nombre: {{donation['contact_first_name']}}, {{donation['contact_last_name']}} </h3>
+                <h3>Teléfono: {{donation['contact_phone']}}</h3>
+                <h3>Email: {{donation['contact_email']}}</h3>
+            </div>
+            <div>
+                <a class="btn btn-outline-success me-2" href="/claim_donation/{{donation['id']}}">Solicitar esta Donación</a>
+            </div>
+        </div>
+        
+    
+    </body>
+   
+    
+</body>
+</html>
